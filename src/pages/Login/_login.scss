@@ -1,0 +1,33 @@
+.login {
+  .login-title {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .login-welcome-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: $white;
+  }
+
+  .login-right {
+    background-color: $blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-desc {
+    font-size: 16px;
+    color: $white;
+  }
+
+  .login-sign-up {
+    font-size: 16px;
+    color: $white;
+    border-radius: 200px;
+    padding: 10px 30px;
+    border: 0.5px solid;
+  }
+}
