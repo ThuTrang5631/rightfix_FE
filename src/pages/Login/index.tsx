@@ -4,6 +4,8 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 import loginImage from "../../assets/welcome-concept-illustration_114360-22393.jpg";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../utils/constants";
 
 const Login = () => {
   return (
@@ -43,8 +45,12 @@ const Login = () => {
           </ProForm>
         </div>
       </div>
-      <div className="login-image w-[50%] h-[100%]">
-        <img src={loginImage} alt="image login" />
+      <div className="login-right w-[50%] h-[100%]">
+        <h2 className="login-welcome-title mb-[20px]">Welcome to login</h2>
+        <p className="login-desc mb-[30px]">Don't have an account?</p>
+        <Link className="login-sign-up" to={ROUTES.signUp}>
+          Sign Up
+        </Link>
       </div>
     </div>
   );
