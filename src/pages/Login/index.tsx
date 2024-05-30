@@ -3,7 +3,6 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from "@ant-design/pro-components";
-import loginImage from "../../assets/welcome-concept-illustration_114360-22393.jpg";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/constants";
 
