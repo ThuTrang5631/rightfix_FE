@@ -31,11 +31,13 @@ const Login = () => {
             }}
           >
             <ProFormText
+              name="username"
               label="Username"
               placeholder="Username"
               rules={[{ required: true, message: "Please enter username" }]}
             />
             <ProFormText.Password
+              name="password"
               label="Password"
               placeholder="Password"
               rules={[{ required: true, message: "Please enter password" }]}

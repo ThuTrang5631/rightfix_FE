@@ -1,0 +1,27 @@
+.sign-up {
+  .sign-up-title {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .sign-up-right {
+    background-color: $blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sign-up-welcome-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: $white;
+  }
+
+  .sign-up-login-desc {
+    font-size: 16px;
+
+    a {
+      color: $blue;
+    }
+  }
+}
