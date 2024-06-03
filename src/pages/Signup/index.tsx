@@ -4,10 +4,47 @@ import {
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { ROUTES } from "../../utils/constants";
+import { handleCreateUser } from "../../utils/handler";
+import moment from "moment";
 
 const SignUp = () => {
+  const [form] = ProForm.useForm();
+
+  const handleSignUp = async () => {
+    await form.validateFields();
+
+    const valForm = form.getFieldsValue();
+    console.log("valForm", valForm);
+
+    const dataCreate = {
+      fullName: valForm?.fullName,
+      gender: valForm?.gender,
+      dob: moment(valForm?.dob).format("YYYY-MM-DD"),
+      email: valForm?.email,
+      password: valForm?.password,
+    };
+    console.log("dataCreate", dataCreate);
+
+    try {
+      const res = await handleCreateUser(dataCreate);
+      console.log("res", res);
+      if (res?.data) {
+        redirect(ROUTES.login);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const validateConfirmPassword = (_: any, value: string) => {
+    if (!value || form.getFieldValue("password") === value) {
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error("The two passwords do not match!"));
+  };
+
   return (
     <div className="sign-up flex h-[100vh]">
       <div className="sign-up-wrap-form w-[60%] flex flex-col justify-center items-center py-[40px]">
@@ -28,12 +65,15 @@ const SignUp = () => {
               },
             },
           }}
+          onFinish={handleSignUp}
+          form={form}
         >
           <ProFormText
-            name="username"
-            label="Username"
-            placeholder="Username"
-            rules={[{ required: true, message: "Please enter username" }]}
+            name="fullName"
+            label="Full Name"
+            placeholder="Full Name"
+            rules={[{ required: true, message: "Please enter full name" }]}
+            width="md"
           />
           <ProFormText
             name="email"
@@ -46,12 +86,14 @@ const SignUp = () => {
               },
               { required: true, message: "Please enter email" },
             ]}
+            width="md"
           />
           <ProFormText.Password
             name="password"
             label="Password"
             placeholder="Password"
             rules={[{ required: true, message: "Please enter password" }]}
+            width="md"
           />
           <ProFormText.Password
             name="confirm_password"
@@ -59,27 +101,31 @@ const SignUp = () => {
             placeholder="Confirm password"
             rules={[
               { required: true, message: "Please enter confirm password" },
+              {
+                validator: validateConfirmPassword,
+              },
             ]}
+            width="md"
           />
-          <ProForm.Group>
+          <div className="flex justify-between">
             <ProFormSelect
               name="gender"
               label="Gender"
               placeholder="Gender"
               options={[
-                { label: "Male", value: "male" },
-                { label: "Female", value: "female" },
-                { label: "Other", value: "other" },
+                { label: "Male", value: "MALE" },
+                { label: "Female", value: "FEMALE" },
+                { label: "Other", value: "OTHER" },
               ]}
               rules={[{ required: true, message: "Please select gender" }]}
             />
             <ProFormDatePicker
               placeholder="Birthday"
-              name="birthday"
+              name="dob"
               label="Birthday"
               rules={[{ required: true, message: "Please enter birthday" }]}
             />
-          </ProForm.Group>
+          </div>
         </ProForm>
         <div className="sign-up-login mt-[20px]">
           <p className="sign-up-login-desc">
