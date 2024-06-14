@@ -1,0 +1,66 @@
+@mixin overflowText($line: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+@mixin textRegular($color, $size, $lineHeight) {
+  font-weight: 400;
+  color: $color;
+  font-size: $size;
+  line-height: $lineHeight;
+}
+
+@mixin textMedium($color, $size, $lineHeight) {
+  font-weight: 500;
+  color: $color;
+  font-size: $size;
+  line-height: $lineHeight;
+}
+
+@mixin textBold($color, $size, $lineHeight) {
+  font-weight: 700;
+  color: $color;
+  font-size: $size;
+  line-height: $lineHeight;
+}
+
+@mixin devices($breakpoint) {
+  @if $breakpoint == xx-large {
+    @media only screen and (max-width: $breakpoint-xxl) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == x-large {
+    @media only screen and (max-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == large {
+    @media only screen and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == medium {
+    @media only screen and (max-width: $breakpoint-md) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == small {
+    @media only screen and (max-width: $breakpoint-sm) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == x-small {
+    @media only screen and (max-width: $breakpoint-xs) {
+      @content;
+    }
+  }
+}
