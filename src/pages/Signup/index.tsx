@@ -5,7 +5,7 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 import moment from "moment";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUpImage from "../../assets/signup.svg";
 import { ROUTES } from "../../utils/constants";
 import { handleCreateUser } from "../../utils/handler";
@@ -38,7 +38,7 @@ const SignUp = () => {
     }
   };
 
-  const validateConfirmPassword = (_: string, value: string) => {
+  const validateConfirmPassword = (_: any, value: string) => {
     if (!value || form.getFieldValue("password") === value) {
       return Promise.resolve();
     }
