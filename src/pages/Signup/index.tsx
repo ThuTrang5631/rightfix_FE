@@ -31,8 +31,6 @@ const SignUp = () => {
     try {
       const res = await handleCreateUser(dataCreate);
       if (res?.status === 200) {
-        console.log("hi");
-
         navigate(ROUTES.login);
       }
     } catch (error) {
