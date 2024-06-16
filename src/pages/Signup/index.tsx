@@ -40,7 +40,7 @@ const SignUp = () => {
     }
   };
 
-  const validateConfirmPassword = (_: any, value: string) => {
+  const validateConfirmPassword = (_: string, value: string) => {
     if (!value || form.getFieldValue("password") === value) {
       return Promise.resolve();
     }

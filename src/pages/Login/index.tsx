@@ -23,7 +23,10 @@ const Login = () => {
 
     try {
       const res = await handleSignIn(dataLogin);
-      setToken(res?.data);
+      if (res?.data) {
+        setToken(res?.data);
+        navigate(ROUTES.home);
+      }
     } catch (error) {
       console.log(error);
     }
