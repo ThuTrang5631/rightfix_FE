@@ -5,34 +5,35 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 import moment from "moment";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import signUpImage from "../../assets/signup.svg";
 import { ROUTES } from "../../utils/constants";
 import { handleCreateUser } from "../../utils/handler";
 
 const SignUp = () => {
   const [form] = ProForm.useForm();
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     await form.validateFields();
 
     const valForm = form.getFieldsValue();
-    console.log("valForm", valForm);
 
     const dataCreate = {
       fullName: valForm?.fullName,
+      username: valForm?.username,
       gender: valForm?.gender,
       dob: moment(valForm?.dob).format("YYYY-MM-DD"),
       email: valForm?.email,
       password: valForm?.password,
     };
-    console.log("dataCreate", dataCreate);
 
     try {
       const res = await handleCreateUser(dataCreate);
-      console.log("res", res);
-      if (res?.data) {
-        redirect(ROUTES.login);
+      if (res?.status === 200) {
+        console.log("hi");
+
+        navigate(ROUTES.login);
       }
     } catch (error) {
       console.log(error);
@@ -77,6 +78,13 @@ const SignUp = () => {
               name="fullName"
               label="Full Name"
               placeholder="Full Name"
+              rules={[{ required: true, message: "Please enter full name" }]}
+              width="md"
+            />
+            <ProFormText
+              name="username"
+              label="UserName"
+              placeholder="UserName"
               rules={[{ required: true, message: "Please enter full name" }]}
               width="md"
             />

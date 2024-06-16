@@ -3,16 +3,32 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from "@ant-design/pro-components";
+import { Link, useNavigate } from "react-router-dom";
 import logInImage from "../../assets/login.svg";
-import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/constants";
-import { Col, Row } from "antd";
-
-const layout = {
-  wrapperCol: { span: 16 },
-};
+import { handleSignIn, setToken } from "../../utils/handler";
 
 const Login = () => {
+  const [form] = ProForm.useForm();
+  const navigate = useNavigate();
+
+  const handleFormLogin = async () => {
+    await form.validateFields();
+
+    const valForm = form.getFieldsValue();
+    const dataLogin = {
+      username: valForm?.username,
+      password: valForm?.password,
+    };
+
+    try {
+      const res = await handleSignIn(dataLogin);
+      setToken(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="login flex">
@@ -39,6 +55,8 @@ const Login = () => {
                   },
                 },
               }}
+              form={form}
+              onFinish={handleFormLogin}
             >
               <ProFormText
                 name="username"
