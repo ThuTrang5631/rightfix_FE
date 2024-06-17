@@ -6,7 +6,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logInImage from "../../assets/login.svg";
 import { ROUTES } from "../../utils/constants";
-import { handleSignIn, setToken } from "../../utils/handler";
+import { handleSignIn, setToken, validatePassword } from "../../utils/handler";
 
 const Login = () => {
   const [form] = ProForm.useForm();
@@ -73,7 +73,10 @@ const Login = () => {
                 name="password"
                 label="Password"
                 placeholder="Password"
-                rules={[{ required: true, message: "Please enter password" }]}
+                rules={[
+                  { required: true, message: "Please enter password" },
+                  { validator: validatePassword },
+                ]}
                 width="md"
               />
               <ProFormCheckbox>Remember me</ProFormCheckbox>

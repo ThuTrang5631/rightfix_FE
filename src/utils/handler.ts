@@ -30,3 +30,20 @@ export const handleSignIn = async (data: any) => {
 
   return res;
 };
+
+export const validatePassword = (
+  rule: any,
+  value: any,
+  callback: (error?: string) => void
+) => {
+  const regexSpecialCharacter = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+  if (value && value.length < 8) {
+    return callback("Password greater than 8 characters");
+  }
+
+  if (value.length && !regexSpecialCharacter.test(value))
+    return callback("Password must contain special characters");
+
+  return callback();
+};
