@@ -8,7 +8,7 @@ import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 import signUpImage from "../../assets/signup.svg";
 import { ROUTES } from "../../utils/constants";
-import { handleCreateUser } from "../../utils/handler";
+import { handleCreateUser, validatePassword } from "../../utils/handler";
 
 const SignUp = () => {
   const [form] = ProForm.useForm();
@@ -103,7 +103,10 @@ const SignUp = () => {
               name="password"
               label="Password"
               placeholder="Password"
-              rules={[{ required: true, message: "Please enter password" }]}
+              rules={[
+                { required: true, message: "Please enter password" },
+                { validator: validatePassword },
+              ]}
               width="md"
             />
             <ProFormText.Password
