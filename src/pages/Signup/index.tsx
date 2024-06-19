@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import signUpImage from "../../assets/signup.svg";
 import { ROUTES } from "../../utils/constants";
 import { handleCreateUser, validatePassword } from "../../utils/handler";
+import { notification } from "antd";
 
 const SignUp = () => {
   const [form] = ProForm.useForm();
@@ -34,11 +35,17 @@ const SignUp = () => {
         navigate(ROUTES.login);
       }
     } catch (error) {
+      notification.open({
+        message: "Đăng ký không thành công",
+        description: "Bạn có thể nhập sai thông tin nào đó. Vui lòng thử lại",
+        type: "error",
+        duration: 3,
+      });
       console.log(error);
     }
   };
 
-  const validateConfirmPassword = (_: any, value: string) => {
+  const validateConfirmPassword = (_: unknown, value: string) => {
     if (!value || form.getFieldValue("password") === value) {
       return Promise.resolve();
     }

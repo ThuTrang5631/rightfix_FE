@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logInImage from "../../assets/login.svg";
 import { ROUTES } from "../../utils/constants";
 import { handleSignIn, setToken, validatePassword } from "../../utils/handler";
+import { notification } from "antd";
 
 const Login = () => {
   const [form] = ProForm.useForm();
@@ -28,6 +29,13 @@ const Login = () => {
         navigate(ROUTES.home);
       }
     } catch (error) {
+      notification.open({
+        message: "Đăng nhập không thành công",
+        description:
+          "Bạn có thể nhập sai Username hoặc Password. Vui lòng thử lại.",
+        type: "error",
+        duration: 3,
+      });
       console.log(error);
     }
   };
