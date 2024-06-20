@@ -32,7 +32,7 @@ export const handleSignIn = async (data: any) => {
 };
 
 export const validatePassword = (
-  rule: any,
+  _rule: any,
   value: any,
   callback: (error?: string) => void
 ) => {
