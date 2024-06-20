@@ -1,6 +1,8 @@
 @import "./variables";
+@import "../styles/mixin";
 @import "../pages/Login/login";
 @import "../pages/Signup/signup";
+@import "../pages/Homepage/homepage";
 
 img {
   display: block;
@@ -54,4 +56,11 @@ ul {
 button,
 a {
   cursor: pointer;
+}
+
+@media only screen and (min-width: 1920px) {
+  body {
+    width: 1440px;
+    margin: auto !important;
+  }
 }

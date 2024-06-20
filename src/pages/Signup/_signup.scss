@@ -1,27 +1,68 @@
-.sign-up {
-  .sign-up-title {
-    font-size: 30px;
-    font-weight: 700;
-  }
+.sign-up-container {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-  .sign-up-right {
-    background-color: $blue;
-    display: flex;
-    justify-content: center;
+  .sign-up {
+    width: 80%;
     align-items: center;
+
+    .sign-up-title {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .sign-up-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sign-up-welcome-title {
+      font-size: 40px;
+      font-weight: 700;
+      color: $white;
+    }
+
+    .sign-up-login-desc {
+      font-size: 16px;
+
+      a {
+        color: $blue;
+      }
+    }
   }
+}
 
-  .sign-up-welcome-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: $white;
+@include devices(large) {
+  .sign-up-container {
+    .sign-up {
+      width: 100%;
+      justify-content: center;
+
+      .sign-up-right {
+        display: none;
+      }
+
+      .sign-up-wrap-form {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 5px;
+      }
+    }
   }
+}
 
-  .sign-up-login-desc {
-    font-size: 16px;
-
-    a {
-      color: $blue;
+@include devices(medium) {
+  .sign-up-container {
+    .sign-up {
+      .sign-up-wrap-form {
+        box-shadow: none;
+        border-radius: none;
+      }
     }
   }
 }

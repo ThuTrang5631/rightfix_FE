@@ -4,41 +4,48 @@ import {
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components";
-import { Link, redirect } from "react-router-dom";
-import { ROUTES } from "../../utils/constants";
-import { handleCreateUser } from "../../utils/handler";
 import moment from "moment";
+import { Link, useNavigate } from "react-router-dom";
+import signUpImage from "../../assets/signup.svg";
+import { ROUTES } from "../../utils/constants";
+import { handleCreateUser, validatePassword } from "../../utils/handler";
+import { notification } from "antd";
 
 const SignUp = () => {
   const [form] = ProForm.useForm();
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     await form.validateFields();
 
     const valForm = form.getFieldsValue();
-    console.log("valForm", valForm);
 
     const dataCreate = {
       fullName: valForm?.fullName,
+      username: valForm?.username,
       gender: valForm?.gender,
       dob: moment(valForm?.dob).format("YYYY-MM-DD"),
       email: valForm?.email,
       password: valForm?.password,
     };
-    console.log("dataCreate", dataCreate);
 
     try {
       const res = await handleCreateUser(dataCreate);
-      console.log("res", res);
-      if (res?.data) {
-        redirect(ROUTES.login);
+      if (res?.status === 200) {
+        navigate(ROUTES.login);
       }
     } catch (error) {
+      notification.open({
+        message: "Đăng ký không thành công",
+        description: "Bạn có thể nhập sai thông tin nào đó. Vui lòng thử lại",
+        type: "error",
+        duration: 3,
+      });
       console.log(error);
     }
   };
 
-  const validateConfirmPassword = (_: any, value: string) => {
+  const validateConfirmPassword = (_: unknown, value: string) => {
     if (!value || form.getFieldValue("password") === value) {
       return Promise.resolve();
     }
@@ -46,95 +53,110 @@ const SignUp = () => {
   };
 
   return (
-    <div className="sign-up flex h-[100vh]">
-      <div className="sign-up-wrap-form w-[60%] flex flex-col justify-center items-center py-[40px]">
-        <h1 className="sign-up-title mb-[20px]">Sign Up</h1>
-        <ProForm
-          submitter={{
-            searchConfig: {
-              submitText: "Create Account",
-            },
-            submitButtonProps: {
-              style: {
-                width: "100%",
-              },
-            },
-            resetButtonProps: {
-              style: {
-                display: "none",
-              },
-            },
-          }}
-          onFinish={handleSignUp}
-          form={form}
-        >
-          <ProFormText
-            name="fullName"
-            label="Full Name"
-            placeholder="Full Name"
-            rules={[{ required: true, message: "Please enter full name" }]}
-            width="md"
-          />
-          <ProFormText
-            name="email"
-            label="Email"
-            placeholder="Email"
-            rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-              { required: true, message: "Please enter email" },
-            ]}
-            width="md"
-          />
-          <ProFormText.Password
-            name="password"
-            label="Password"
-            placeholder="Password"
-            rules={[{ required: true, message: "Please enter password" }]}
-            width="md"
-          />
-          <ProFormText.Password
-            name="confirm_password"
-            label="Confirm password"
-            placeholder="Confirm password"
-            rules={[
-              { required: true, message: "Please enter confirm password" },
-              {
-                validator: validateConfirmPassword,
-              },
-            ]}
-            width="md"
-          />
-          <div className="flex justify-between">
-            <ProFormSelect
-              name="gender"
-              label="Gender"
-              placeholder="Gender"
-              options={[
-                { label: "Male", value: "MALE" },
-                { label: "Female", value: "FEMALE" },
-                { label: "Other", value: "OTHER" },
-              ]}
-              rules={[{ required: true, message: "Please select gender" }]}
-            />
-            <ProFormDatePicker
-              placeholder="Birthday"
-              name="dob"
-              label="Birthday"
-              rules={[{ required: true, message: "Please enter birthday" }]}
-            />
-          </div>
-        </ProForm>
-        <div className="sign-up-login mt-[20px]">
-          <p className="sign-up-login-desc">
-            Already have an account? <Link to={ROUTES.login}>Log In</Link>
-          </p>
+    <div className="sign-up-container">
+      <div className="sign-up flex">
+        <div className="sign-up-right w-[40%] h-[100%] px-[20px]">
+          <img src={signUpImage} alt="sign up image" />
         </div>
-      </div>
-      <div className="sign-up-right w-[40%] h-[100%] px-[20px]">
-        <h2 className="sign-up-welcome-title mb-[20px]">Welcome to RIGHTFIX</h2>
+        <div className="sign-up-wrap-form w-[60%] flex flex-col justify-center items-center py-[40px]">
+          <h1 className="sign-up-title mb-[20px]">SIGN UP</h1>
+          <ProForm
+            submitter={{
+              searchConfig: {
+                submitText: "Create Account",
+              },
+              submitButtonProps: {
+                style: {
+                  width: "100%",
+                },
+              },
+              resetButtonProps: {
+                style: {
+                  display: "none",
+                },
+              },
+            }}
+            onFinish={handleSignUp}
+            form={form}
+          >
+            <ProFormText
+              name="fullName"
+              label="Full Name"
+              placeholder="Full Name"
+              rules={[{ required: true, message: "Please enter full name" }]}
+              width="md"
+            />
+            <ProFormText
+              name="username"
+              label="UserName"
+              placeholder="UserName"
+              rules={[{ required: true, message: "Please enter full name" }]}
+              width="md"
+            />
+            <ProFormText
+              name="email"
+              label="Email"
+              placeholder="Email"
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                { required: true, message: "Please enter email" },
+              ]}
+              width="md"
+            />
+            <ProFormText.Password
+              name="password"
+              label="Password"
+              placeholder="Password"
+              rules={[
+                { required: true, message: "Please enter password" },
+                { validator: validatePassword },
+              ]}
+              width="md"
+            />
+            <ProFormText.Password
+              name="confirm_password"
+              label="Confirm password"
+              placeholder="Confirm password"
+              rules={[
+                { required: true, message: "Please enter confirm password" },
+                {
+                  validator: validateConfirmPassword,
+                },
+              ]}
+              width="md"
+            />
+            <div className="flex justify-between">
+              <ProFormSelect
+                name="gender"
+                label="Gender"
+                placeholder="Gender"
+                options={[
+                  { label: "Male", value: "MALE" },
+                  { label: "Female", value: "FEMALE" },
+                  { label: "Other", value: "OTHER" },
+                ]}
+                rules={[{ required: true, message: "Please select gender" }]}
+              />
+              <ProFormDatePicker
+                placeholder="Birthday"
+                name="dob"
+                label="Birthday"
+                rules={[{ required: true, message: "Please enter birthday" }]}
+              />
+            </div>
+          </ProForm>
+          <div className="sign-up-login mt-[20px]">
+            <p className="sign-up-login-desc">
+              Already have an account?{" "}
+              <Link to={ROUTES.login}>
+                <strong>Sign In</strong>
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
