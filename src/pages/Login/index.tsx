@@ -6,17 +6,20 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logInImage from "../../assets/login.svg";
 import { ROUTES } from "../../utils/constants";
-import { handleSignIn, setToken, validatePassword } from "../../utils/handler";
+import { handleSignIn, validatePassword } from "../../utils/handler";
 import { notification } from "antd";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [form] = ProForm.useForm();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleFormLogin = async () => {
     await form.validateFields();
 
     const valForm = form.getFieldsValue();
+
     const dataLogin = {
       username: valForm?.username,
       password: valForm?.password,
@@ -25,7 +28,7 @@ const Login = () => {
     try {
       const res = await handleSignIn(dataLogin);
       if (res?.data) {
-        setToken(res?.data);
+        login(res?.data, form.getFieldValue("remember-me"));
         navigate(ROUTES.home);
       }
     } catch (error) {
@@ -87,7 +90,7 @@ const Login = () => {
                 ]}
                 width="md"
               />
-              <ProFormCheckbox>Remember me</ProFormCheckbox>
+              <ProFormCheckbox name="remember-me">Remember me</ProFormCheckbox>
             </ProForm>
           </div>
           <div className="login-content-signup flex">
