@@ -6,10 +6,9 @@ import Routes from "./Routes";
 
 const App = () => {
   const { accessToken } = useAuth();
-  console.log("accessToken", accessToken);
 
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && window.location.pathname !== ROUTES.home) {
       window.location.replace(ROUTES.home);
     }
   }, []);

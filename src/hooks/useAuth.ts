@@ -27,8 +27,6 @@ const useAuth = () => {
     setAccessToken(null);
   };
 
-  console.log("accessToken", accessToken);
-
   return {
     accessToken,
     login,
