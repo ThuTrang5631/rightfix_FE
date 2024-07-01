@@ -1,14 +1,22 @@
 import axios from "axios";
 import { URL } from "./constants";
 
-export const setToken = (token: string) => {
+export const setTokenLocalStorage = (token: string) => {
   localStorage.setItem("accessToken", token);
 };
 
-export const getToken = () => {
+export const getTokenLocalStorage = () => {
   const token = localStorage.getItem("accessToken");
 
   return token;
+};
+
+export const setTokenSessionStorage = (token: string) => {
+  sessionStorage.setItem("accessToken", token);
+};
+
+export const getTokenSessionStorage = () => {
+  return sessionStorage.getItem("accessToken");
 };
 
 export const handleCreateUser = async (data: any) => {
