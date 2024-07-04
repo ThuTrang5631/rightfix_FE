@@ -6,7 +6,6 @@ import Routes from "./Routes";
 
 const App = () => {
   const { accessToken } = useAuth();
-  console.log("accessToken", accessToken);
 
   useEffect(() => {
     if (accessToken) {
