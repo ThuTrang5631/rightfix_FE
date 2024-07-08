@@ -27,6 +27,13 @@
   line-height: $lineHeight;
 }
 
+// $breakpoint-xs: 480px;
+// $breakpoint-sm: 576px;
+// $breakpoint-md: 768px;
+// $breakpoint-lg: 992px;
+// $breakpoint-xl: 1200px;
+// $breakpoint-xxl: 1600px;
+
 @mixin devices($breakpoint) {
   @if $breakpoint == xx-large {
     @media only screen and (max-width: $breakpoint-xxl) {
