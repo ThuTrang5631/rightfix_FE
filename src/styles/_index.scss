@@ -5,6 +5,7 @@
 @import "../pages/Homepage/homepage";
 @import "../components/Admin/Header/header-admin";
 @import "../components/Header/header";
+@import "../components/Footer/footer";
 
 img {
   display: block;
@@ -58,6 +59,10 @@ ul {
 button,
 a {
   cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 @media only screen and (min-width: 1920px) {
