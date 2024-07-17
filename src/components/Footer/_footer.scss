@@ -65,5 +65,55 @@
   .footer-bottom {
     padding: 50px 32px;
     border-top: 1px solid $neutral-4;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-social-link {
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+@include devices(large) {
+  .footer {
+    padding-inline: 30px;
+  }
+
+  .footer-item {
+    margin-right: 20px;
+  }
+}
+
+@include devices(medium) {
+  .footer {
+    .footer-top,
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-item {
+      width: 100%;
+      margin-right: 0;
+
+      &:first-child {
+        width: 100%;
+      }
+    }
+
+    .footer-wrap-link {
+      align-items: center;
+    }
+
+    .footer-social {
+      justify-content: center;
+    }
+
+    .footer-copyright {
+      margin-bottom: 20px;
+    }
   }
 }
