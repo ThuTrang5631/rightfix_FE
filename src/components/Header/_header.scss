@@ -2,10 +2,10 @@
   display: flex;
   width: 100%;
   background-color: $white;
-  padding: 20px;
+  padding: 0 20px;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: sticky;
   align-items: center;
 
   .header-menu {
@@ -16,7 +16,7 @@
 
   .header-logo {
     width: 30%;
-    max-width: 140px;
+    max-width: 100px;
   }
 
   .header-item {

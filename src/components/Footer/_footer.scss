@@ -1,3 +1,69 @@
 .footer {
-  background-color: $black;
+  background-color: $neutral-8;
+  padding: 100px 120px 48px;
+
+  .footer-top {
+    display: flex;
+    margin-bottom: 48px;
+  }
+
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+
+  .footer-title {
+    @include textMedium($neutral-4, 14px, 20px);
+  }
+
+  .footer-item {
+    margin-right: 8%;
+    width: 25%;
+
+    &:first-child {
+      width: 30%;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .footer-item-title {
+    @include textMedium($neutral-4, 14px, 18px);
+    margin-bottom: 16px;
+  }
+
+  .footer-wrap-link {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-link {
+    a {
+      @include textRegular($neutral-2, 14px, 18px);
+    }
+
+    &:hover,
+    :focus {
+      color: $primary;
+    }
+  }
+
+  .footer-link-icon {
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .footer-copyright {
+    @include textRegular($neutral-4, 14px, 18px);
+  }
+
+  .footer-bottom {
+    padding: 50px 32px;
+    border-top: 1px solid $neutral-4;
+  }
 }
